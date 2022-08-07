@@ -60,8 +60,8 @@ services:
     ports:
       - 33066:3306
     environment:
-      MYSQL_DATABASE: test_database
-      MYSQL_ROOT_PASSWORD: test_password
+      MYSQL_DATABASE: gbaynham-archive
+      MYSQL_ROOT_PASSWORD: o4nbnRp3fmEtzDi2kGL4G
       SERVICE_TAGS: dev
       SERVICE_NAME: mysql
     volumes:
