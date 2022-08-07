@@ -1,0 +1,51 @@
+version: '3'
+services:
+
+  #PHP Service
+  gbaynham-archive-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: php:fpm-bullseye
+    container_name: gbaynham-archive-api
+    restart: unless-stopped
+    tty: true
+    environment:
+      SERVICE_NAME: gbaynham-archive-api
+      SERVICE_TAGS: dev
+    working_dir: /var/www
+    networks:
+      - gbaynham-archive-network
+
+  #Nginx Service
+  gbaynham-archive-webserver:
+    image: nginx:alpine
+    container_name: gbaynham-archive-webserver
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "8080:80"
+      - "44343:443"
+    networks:
+      - gbaynham-archive-network
+
+  #MySQL Service
+  gbaynham-archive-db:
+    image: mariadb:latest
+    container_name:   gbaynham-archive-db
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "33066:3306"
+    environment:
+      MYSQL_DATABASE: gbaynham-archive-db
+      MYSQL_ROOT_PASSWORD: 7FoYGqzVMyo2SUFoPJRCx
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    networks:
+      -   gbaynham-archive-network
+
+#Docker Networks
+networks:
+  gbaynham-archive-network:
+    driver: bridge
