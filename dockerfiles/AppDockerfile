@@ -25,6 +25,7 @@ RUN apt-get update && apt-get install -y \
     curl \
     wget \
     libzip-dev \
+    libcurl4 \
     symfony-cli \
     zlib1g-dev \
     g++ \
@@ -49,6 +50,7 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 #5 Install PECL extensions
 RUN pecl install apcu \
+    && pecl install zip \
     && docker-php-ext-enable apcu \
     && docker-php-ext-configure zip
 
